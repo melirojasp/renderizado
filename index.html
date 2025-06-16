@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>Formulario con Select</title>
+  <link rel="stylesheet" href="./lib/css/estilos.css">
+</head>
+
+<body>
+ <div class="container">
+  <h1>Selecciona un integrante para ver su chiste</h1>
+  <br><br>
+
+  <form onsubmit="procesaForm(event)">
+    <p>
+      <label>
+        Integrante:
+        <select name="integrante" required>
+          <option value="">-- Selecciona --</option>
+          <option value="gerardo">ESPINOSA PÉREZ GERARDO YAHIR</option>
+          <option value="gabriela">MARTÍNEZ SALINAS GABRIELA EDITH</option>
+          <option value="angel">MENDEZ ROMERO ANGEL YAEL</option>
+          <option value="missael">PÉREZ BARAJAS MISSAEL</option>
+          <option value="melisa">ROJAS PÉREZ MELISA</option>
+          <option value="jorge">SOLIS MORALES JORGE AARÓN</option>
+        </select>
+      </label>
+    </p>
+    <p><button type="submit">VER CHISTE</button></p>
+  </form>
+<br><br>
+  <p><a class="boton-estilo" href="chistes.html">Ver todos los chistes</a></p>
+</div>
+
+ <script type="module">
+
+
+  import { exportaAHtml } from "./lib/js/exportaAHtml.js"
+  import { muestraError } from "./lib/js/muestraError.js"
+  import { submitForm } from "./lib/js/submitForm.js"
+  /**
+   * @param {Event} event
+   */
+  async function procesaForm(event) {
+   try {
+    const respuesta =
+     await submitForm(
+      "srv/procesa.php", event)
+    alert(respuesta.body)
+   } catch (error) {
+    muestraError(error)
+   }
+  }
+  exportaAHtml(procesaForm)
+
+ </script>
+
+</body>
+
+</html>
